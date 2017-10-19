@@ -30,7 +30,6 @@ public class UserControllerTest {
 
     @Test
     public void index() throws Exception {
-
         webTestClient.get().uri("/")
                 .exchange()
                 .expectStatus().isOk();
@@ -38,7 +37,6 @@ public class UserControllerTest {
 
     @Test
     public void formPost() throws Exception {
-
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("limit", "3");
 
