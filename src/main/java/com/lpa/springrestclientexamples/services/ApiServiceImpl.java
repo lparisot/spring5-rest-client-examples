@@ -35,11 +35,13 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public Flux<User> getUsers(Mono<Integer> limit) {
-        return WebClient
+        WebClient.RequestHeadersSpec<?> request = WebClient
                 .create(apiUrl)
                 .get()
                 .uri(uriBuilder -> uriBuilder.queryParam("limit", limit.block()).build())
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+
+        return request
                 .exchange()
                 .flatMap(resp -> resp.bodyToMono(UserData.class))
                 .flatMapIterable(UserData::getData);
